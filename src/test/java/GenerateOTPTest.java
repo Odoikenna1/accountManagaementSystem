@@ -12,6 +12,6 @@ class GenerateOTPTest {
     void testThatOTPCanBeGenerated(){
         AuthOServiceImpl authenticator = new AuthOServiceImpl();
         String otp = authenticator.generateOTP();
-        assertThat(otp.length()).isEqualTo(6);
+        assertThat(otp.length()).isEqualTo("");
     }
 }

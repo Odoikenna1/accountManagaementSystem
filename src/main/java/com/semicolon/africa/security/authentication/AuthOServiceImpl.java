@@ -8,6 +8,7 @@ public class AuthOServiceImpl implements AuthOServices{
 
     @Override
     public String generateOTP() {
+
         return "";
     }
 }
