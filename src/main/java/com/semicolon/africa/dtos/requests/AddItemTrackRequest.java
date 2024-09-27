@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 public class AddItemTrackRequest {
     private Long itemId;
+    private Long userId;
     private String name;
     private CategoryType category;
     private Long stock;

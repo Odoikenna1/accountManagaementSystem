@@ -1,9 +1,7 @@
 package com.semicolon.africa.data.models;
 
 import com.semicolon.africa.data.type.CategoryType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Inventory {
     @Id
+    @GeneratedValue
     private Long id;
+    @Enumerated(EnumType.STRING)
     private CategoryType category;
     private Long quantity;
     private double unitPrice;

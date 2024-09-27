@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    boolean getItemsByName(String name);
 
-    Optional<Item> getItemsByNameAndCategory(String name, CategoryType category);
+    boolean existsByName(String name);
 
-    boolean getItemsByCategory(CategoryType category);
+    Optional<Item> getItemsByNameAndCategoryAndUserId(String name, CategoryType category, Long userId);
+
+    boolean existsByCategory(CategoryType category);
+
+    boolean existsByUserId(Long userId);
 }

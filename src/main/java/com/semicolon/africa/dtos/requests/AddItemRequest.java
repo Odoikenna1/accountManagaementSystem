@@ -11,5 +11,5 @@ public class AddItemRequest {
     private String category;
     private Long stock;
     private Long inventoryId;
-
+    private Long userId;
 }

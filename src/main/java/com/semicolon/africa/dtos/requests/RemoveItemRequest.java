@@ -8,6 +8,8 @@ import lombok.Setter;
 @Getter
 public class RemoveItemRequest {
     private String name;
+    private String category;
     private Long stock;
     private Long inventoryId;
+    private Long userId;
 }

@@ -1,8 +1,7 @@
 package com.semicolon.africa.data.models;
 
 import com.semicolon.africa.data.type.CategoryType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +12,17 @@ import lombok.Setter;
 public class TrackItemQuantity {
     @Id
     @Setter
+    @GeneratedValue
     private Long id;
+
+    @Setter
+    private long userId;
 
     @Setter
     private String name;
 
     @Setter
+    @Enumerated(EnumType.STRING)
     private CategoryType category;
 
     @Setter
