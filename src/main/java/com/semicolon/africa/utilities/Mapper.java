@@ -10,6 +10,10 @@ import com.semicolon.africa.dtos.requests.UserRegistrationRequest;
 import com.semicolon.africa.dtos.response.AddItemResponse;
 import com.semicolon.africa.dtos.response.AddItemTrackResponse;
 import com.semicolon.africa.dtos.response.GetAllItemHistoryResponse;
+import com.semicolon.africa.exception.InvalidEmailException;
+import com.semicolon.africa.exception.InvalidNameException;
+
+import java.util.Objects;
 
 public class Mapper {
 
@@ -78,10 +82,14 @@ public class Mapper {
     public User map(UserRegistrationRequest userRegistrationRequest, User user){
         user.setFirstName(userRegistrationRequest.getFirstName());
         user.setLastName(userRegistrationRequest.getLastName());
-        user.setEmail(userRegistrationRequest.getEmail());
+        user.setEmail(validateEmail(userRegistrationRequest.getEmail()));
         user.setPassword(userRegistrationRequest.getPassword());
         user.setIndustry(userRegistrationRequest.getIndustry());
         user.setRole(userRegistrationRequest.getRole());
         return user;
+    }
+    private String validateEmail(String email){
+        if(!Objects.equals(email, "") && !Objects.equals(email, " ") && email.contains("a")){return email;}
+        else{throw new InvalidEmailException("Invalid email");}
     }
 }
