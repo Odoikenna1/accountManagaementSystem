@@ -37,7 +37,7 @@ public class ItemServicesImpl implements ItemServices {
         AddItemTrackRequest request1 = new AddItemTrackRequest();
         Mapper.map(request1,mappedItem);
         AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
-        return Mapper.map(addItemResponse,mappedItem);
+        return Mapper.map(addItemResponse,mappedItem,response);
     }
 
     private boolean findItemByUserId(Long userId) {
@@ -54,7 +54,7 @@ public class ItemServicesImpl implements ItemServices {
         Mapper.map(request1,item);
         AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
         AddItemResponse addItemResponse = new AddItemResponse();
-        return Mapper.map(addItemResponse, item);
+        return Mapper.map(addItemResponse, item, response);
     }
 
     private boolean findItemByCategory(String category) {
@@ -70,6 +70,7 @@ public class ItemServicesImpl implements ItemServices {
     @Override
     public RemoveItemResponse removeItem(RemoveItemRequest request) {
         RemoveItemResponse removeItemResponse = new RemoveItemResponse();
+        AddItemTrackResponse response = new AddItemTrackResponse();
         if(findItemByName(request.getName()) && findItemByCategory(request.getCategory()) && findItemByUserId(request.getUserId()) ){
             CategoryType categoryType = CategoryType.valueOf(request.getCategory());
             Item item = itemRepository.getItemsByNameAndCategoryAndUserId(request.getName(),categoryType,request.getUserId())
@@ -79,13 +80,16 @@ public class ItemServicesImpl implements ItemServices {
                 itemRepository.save(item);
                 AddItemTrackRequest request1 = new AddItemTrackRequest();
                 Mapper.map(request1,item);
-                AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
+                response = trackItemQuantityServices.addAllItemUpdate(request1);
             }
             else throw new ItemException("Can,t remove more than the what you have");
             removeItemResponse.setStock(item.getStock());
             removeItemResponse.setItemId(item.getId());
             removeItemResponse.setUserId(item.getUserId());
+            removeItemResponse.setUnitPrice(item.getUnitPrice());
             removeItemResponse.setMessage("Successfully removed item");
+
+            removeItemResponse.setMessageFromTrackItemHistory(response.getMessage());
         }else {
             throw new ItemException("item not found");
         }

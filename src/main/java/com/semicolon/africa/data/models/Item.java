@@ -21,4 +21,5 @@ public class Item {
     private Long stock;
     private Long inventoryId;
     private Long userId;
+    private Long unitPrice;
 }

@@ -18,15 +18,18 @@ public class Mapper {
         newItem.setStock(request.getStock());
         newItem.setInventoryId(request.getInventoryId());
         newItem.setUserId(request.getUserId());
+        newItem.setUnitPrice(request.getUnitPrice());
         return newItem;
     }
 
-    public static AddItemResponse map(AddItemResponse addItemResponse, Item mappedItem) {
+    public static AddItemResponse map(AddItemResponse addItemResponse, Item mappedItem, AddItemTrackResponse response) {
         addItemResponse.setItemId(mappedItem.getId());
         addItemResponse.setItemName(mappedItem.getName());
         addItemResponse.setCategoryType(mappedItem.getCategory());
         addItemResponse.setStock(mappedItem.getStock());
         addItemResponse.setMessage("Item added successfully");
+        addItemResponse.setMessageFromTrackHistory(response.getMessage());
+        addItemResponse.setUnitPrice(response.getUnitPrice());
         return addItemResponse;
     }
 
@@ -36,11 +39,13 @@ public class Mapper {
         request1.setCategory(mappedItem.getCategory());
         request1.setStock(mappedItem.getStock());
         request1.setName(mappedItem.getName());
+        request1.setUnitPrice(mappedItem.getUnitPrice());
     }
 
     public static void map(AddItemTrackRequest request, TrackItemQuantity trackItemQuantity) {
         trackItemQuantity.setItemId(request.getItemId());
         trackItemQuantity.setName(request.getName());
+        trackItemQuantity.setUnitPrice(request.getUnitPrice());
         trackItemQuantity.setStock(request.getStock());
         trackItemQuantity.setCategory(request.getCategory());
         trackItemQuantity.setUserId(request.getUserId());
@@ -48,6 +53,7 @@ public class Mapper {
 
     public static void map(AddItemTrackResponse response, TrackItemQuantity trackItemQuantity) {
         response.setName(trackItemQuantity.getName());
+        response.setUnitPrice(trackItemQuantity.getUnitPrice());
         response.setStock(trackItemQuantity.getStock());
         response.setCategory(trackItemQuantity.getCategory());
         response.setMessage("Added Update");
