@@ -27,4 +27,5 @@ public class UserServiceImpl implements UserServices {
         userRegistrationResponse.setUserId(savedUser.getId());
         return userRegistrationResponse;
     }
+
 }
