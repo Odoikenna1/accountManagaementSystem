@@ -31,6 +31,9 @@ public class TrackItemQuantity {
     @Setter
     private Long itemId;
 
+    @Setter
+    private Long unitPrice;
+
     private int year;
 
     private int month;

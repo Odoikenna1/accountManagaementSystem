@@ -12,4 +12,5 @@ public class AddItemTrackRequest {
     private String name;
     private CategoryType category;
     private Long stock;
+    private Long unitPrice;
 }

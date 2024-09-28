@@ -37,6 +37,7 @@ public class TrackItemQuantityServicesImplTest {
         request.setItemId(1L);
         request.setName("Test");
         request.setStock(6L);
+        request.setUnitPrice(105L);
         request.setCategory(ELECTRONICS);
         request.setUserId(1L);
         AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request);
@@ -50,6 +51,7 @@ public class TrackItemQuantityServicesImplTest {
         request.setName("Test");
         request.setStock(7L);
         request.setCategory(ELECTRONICS);
+        request.setUnitPrice(105L);
         request.setUserId(1L);
         AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request);
         assertThat(response.getMessage()).isEqualTo("Added Update");
@@ -57,6 +59,7 @@ public class TrackItemQuantityServicesImplTest {
         AddItemTrackRequest request1 = new AddItemTrackRequest();
         request1.setItemId(1L);
         request1.setName("Test");
+        request.setUnitPrice(105L);
         request1.setStock(7L);
         request1.setCategory(ELECTRONICS);
         request1.setUserId(1L);
@@ -71,12 +74,14 @@ public class TrackItemQuantityServicesImplTest {
         request.setName("Test");
         request.setStock(7L);
         request.setCategory(ELECTRONICS);
+        request.setUnitPrice(105L);
         request.setUserId(1L);
         AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request);
         assertThat(response.getMessage()).isEqualTo("Added Update");
 
         AddItemTrackRequest request1 = new AddItemTrackRequest();
         request1.setItemId(1L);
+        request.setUnitPrice(105L);
         request1.setName("Test");
         request1.setStock(7L);
         request1.setCategory(ELECTRONICS);
@@ -87,6 +92,7 @@ public class TrackItemQuantityServicesImplTest {
         AddItemTrackRequest request2 = new AddItemTrackRequest();
         request2.setItemId(1L);
         request2.setName("Test");
+        request.setUnitPrice(105L);
         request2.setStock(7L);
         request2.setCategory(ELECTRONICS);
         request2.setUserId(1L);
@@ -105,16 +111,18 @@ public class TrackItemQuantityServicesImplTest {
 //        GetAllTrackItemHistoryByYearRequest request = new GetAllTrackItemHistoryByYearRequest();
 //        request.setUserId(1L);
 //        request.setYear(2023);
+//        request.setUnitPrice(105L);
 //        List<GetAllItemHistoryResponse> response3 = trackItemQuantityServices.getAllTrackItemHistoryByDate(request);
 //        assertThat(response3.size()).isEqualTo(2);
 //    }
 
-        @Test
+    @Test
     public void testThatICanGetItemHistoryOfYear_2024_UsingDomeData(){
         AddItemTrackRequest request1 = new AddItemTrackRequest();
         request1.setItemId(1L);
         request1.setName("Test");
         request1.setStock(7L);
+        request1.setUnitPrice(105L);
         request1.setCategory(ELECTRONICS);
         request1.setUserId(1L);
         AddItemTrackResponse response1 = trackItemQuantityServices.addAllItemUpdate(request1);
@@ -124,6 +132,7 @@ public class TrackItemQuantityServicesImplTest {
         request2.setItemId(1L);
         request2.setName("Test");
         request2.setStock(7L);
+        request2.setUnitPrice(105L);
         request2.setCategory(ELECTRONICS);
         request2.setUserId(1L);
         AddItemTrackResponse response2 = trackItemQuantityServices.addAllItemUpdate(request2);
@@ -131,6 +140,7 @@ public class TrackItemQuantityServicesImplTest {
 
         GetAllTrackItemHistoryByMonthRequest request = new GetAllTrackItemHistoryByMonthRequest();
         request.setUserId(1L);
+        request2.setUnitPrice(105L);
         request.setMonth(9);
         List<GetAllItemHistoryResponse> response3 = trackItemQuantityServices.getAllTrackItemHistoryByMonth(request);
         assertThat(response3.size()).isEqualTo(2);

@@ -11,4 +11,5 @@ public class AddItemTrackResponse {
     private CategoryType category;
     private Long stock;
     private String message;
+    private Long unitPrice;
 }
