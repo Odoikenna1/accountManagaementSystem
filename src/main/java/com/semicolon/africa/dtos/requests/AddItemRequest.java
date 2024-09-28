@@ -12,4 +12,5 @@ public class AddItemRequest {
     private Long stock;
     private Long inventoryId;
     private Long userId;
+    private Long unitPrice;
 }
