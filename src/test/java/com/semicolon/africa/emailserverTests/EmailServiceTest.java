@@ -9,27 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Date;
 import java.util.Properties;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @SpringBootTest
 @TestPropertySource("classpath:secrets.properties")
+
 class EmailServiceTest {
 
     @Autowired
     private AuthOServices authenticator;
 
-    @Value("${spring.mail.userid}")
+    @Value("${spring.mail.username}")
     private String email;
 
     @Value("${spring.mail.password}")
     private String password;
+
+    @Value("${spring.mail.host}")
+    private String smtpHost;
+
+    @Value("${spring.mail.port}")
+    private String port;
+
+    @Value("${spring.mail.properties.mail.smtp.auth}")
+    private String auth;
+
+    @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
+    private String startTls;
 
     @Test
     void testThatEmailServiceCanSendEmailToUser(){
@@ -47,10 +57,10 @@ class EmailServiceTest {
 
         Properties props = new Properties();
 
-        props.put("mail.smtp.host", "smtp-mail.outlook.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", smtpHost);
+        props.put("mail.smtp.port", port);
+        props.put("mail.smtp.auth", auth);
+        props.put("mail.smtp.starttls.enable", startTls);
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
