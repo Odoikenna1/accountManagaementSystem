@@ -30,9 +30,9 @@ public class UserServiceTest {
     @Test
     public void testUserRegistration(){
         UserRegistrationRequest userRegistrationRequest = new UserRegistrationRequest();
-        userRegistrationRequest.setFirstName("David");
-        userRegistrationRequest.setLastName("Odo");
-        userRegistrationRequest.setEmail("davidodojunior@gmail.com");
+        userRegistrationRequest.validate("David");
+        userRegistrationRequest.validate("Odo");
+        userRegistrationRequest.validateEmail("davidodojunior@gmail.com");
         userRegistrationRequest.setIndustry(AGRICULTURE);
         userRegistrationRequest.setRole(USER);
         userRegistrationRequest.setPassword("123");
