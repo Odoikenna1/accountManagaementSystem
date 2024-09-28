@@ -12,4 +12,6 @@ public class RemoveItemResponse {
     private Long userId;
     private Long stock;
     private String message;
+    private String messageFromTrackItemHistory;
+    private Long unitPrice;
 }
