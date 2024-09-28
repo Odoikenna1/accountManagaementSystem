@@ -1,4 +1,7 @@
 package com.semicolon.africa.services.ServiceImplementations;
 
-public class InventoryServicesImpl {
+import com.semicolon.africa.services.Interfaces.InventoryServices;
+
+public class InventoryServicesImpl{
+
 }

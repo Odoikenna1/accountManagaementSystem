@@ -1,0 +1,94 @@
+package com.semicolon.africa.services.ServiceImplementations;
+
+import com.semicolon.africa.data.models.Item;
+import com.semicolon.africa.data.repositories.ItemRepository;
+import com.semicolon.africa.data.type.CategoryType;
+import com.semicolon.africa.dtos.requests.AddItemRequest;
+import com.semicolon.africa.dtos.requests.AddItemTrackRequest;
+import com.semicolon.africa.dtos.requests.RemoveItemRequest;
+import com.semicolon.africa.dtos.response.AddItemResponse;
+import com.semicolon.africa.dtos.response.AddItemTrackResponse;
+import com.semicolon.africa.dtos.response.RemoveItemResponse;
+import com.semicolon.africa.exception.ItemException;
+import com.semicolon.africa.services.Interfaces.ItemServices;
+import com.semicolon.africa.utilities.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class ItemServicesImpl implements ItemServices {
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    TrackItemQuantityServicesImpl trackItemQuantityServices = new TrackItemQuantityServicesImpl();
+
+    @Override
+    public AddItemResponse addItem(AddItemRequest request) {
+        Item newItem = new Item();
+        if(findItemByName(request.getName()) && findItemByCategory(request.getCategory()) && findItemByUserId(request.getUserId()) ){
+            return updateItem(request);
+        }
+        Item mappedItem  = Mapper.map(newItem,request);
+        itemRepository.save(mappedItem);
+        AddItemResponse addItemResponse = new AddItemResponse();
+        AddItemTrackRequest request1 = new AddItemTrackRequest();
+        Mapper.map(request1,mappedItem);
+        AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
+        return Mapper.map(addItemResponse,mappedItem);
+    }
+
+    private boolean findItemByUserId(Long userId) {
+        return itemRepository.existsByUserId(userId);
+    }
+
+    private AddItemResponse updateItem(AddItemRequest request) {
+        CategoryType categoryType = CategoryType.valueOf(request.getCategory());
+        Item item = itemRepository.getItemsByNameAndCategoryAndUserId(request.getName(),categoryType,request.getUserId())
+                .orElseThrow(()->new ItemException("item not found"));
+        item.setStock(request.getStock()+item.getStock());
+        itemRepository.save(item);
+        AddItemTrackRequest request1 = new AddItemTrackRequest();
+        Mapper.map(request1,item);
+        AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
+        AddItemResponse addItemResponse = new AddItemResponse();
+        return Mapper.map(addItemResponse, item);
+    }
+
+    private boolean findItemByCategory(String category) {
+        CategoryType newCategory=  CategoryType.valueOf(category.toUpperCase());
+        return itemRepository.existsByCategory(newCategory);
+    }
+
+    private boolean findItemByName(String name) {
+
+        return itemRepository.existsByName(name);
+    }
+
+    @Override
+    public RemoveItemResponse removeItem(RemoveItemRequest request) {
+        RemoveItemResponse removeItemResponse = new RemoveItemResponse();
+        if(findItemByName(request.getName()) && findItemByCategory(request.getCategory()) && findItemByUserId(request.getUserId()) ){
+            CategoryType categoryType = CategoryType.valueOf(request.getCategory());
+            Item item = itemRepository.getItemsByNameAndCategoryAndUserId(request.getName(),categoryType,request.getUserId())
+                    .orElseThrow(()->new ItemException("item not found"));
+            if(request.getStock() <= item.getStock()) {
+                item.setStock(item.getStock() - request.getStock());
+                itemRepository.save(item);
+                AddItemTrackRequest request1 = new AddItemTrackRequest();
+                Mapper.map(request1,item);
+                AddItemTrackResponse response = trackItemQuantityServices.addAllItemUpdate(request1);
+            }
+            else throw new ItemException("Can,t remove more than the what you have");
+            removeItemResponse.setStock(item.getStock());
+            removeItemResponse.setItemId(item.getId());
+            removeItemResponse.setUserId(item.getUserId());
+            removeItemResponse.setMessage("Successfully removed item");
+        }else {
+            throw new ItemException("item not found");
+        }
+        return removeItemResponse;
+    }
+}
