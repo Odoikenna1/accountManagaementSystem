@@ -2,14 +2,17 @@ package com.semicolon.africa.utilities;
 
 import com.semicolon.africa.data.models.Item;
 import com.semicolon.africa.data.models.TrackItemQuantity;
+import com.semicolon.africa.data.models.User;
 import com.semicolon.africa.data.type.CategoryType;
 import com.semicolon.africa.dtos.requests.AddItemRequest;
 import com.semicolon.africa.dtos.requests.AddItemTrackRequest;
+import com.semicolon.africa.dtos.requests.UserRegistrationRequest;
 import com.semicolon.africa.dtos.response.AddItemResponse;
 import com.semicolon.africa.dtos.response.AddItemTrackResponse;
 import com.semicolon.africa.dtos.response.GetAllItemHistoryResponse;
 
 public class Mapper {
+
 
     public static Item map(Item newItem, AddItemRequest request) {
         newItem.setName(request.getName());
@@ -70,5 +73,15 @@ public class Mapper {
         mappedTrackedItemResponse.setMonth(trackItemQuantity1.getMonth());
         mappedTrackedItemResponse.setYear(trackItemQuantity1.getYear());
         mappedTrackedItemResponse.setItemId(trackItemQuantity1.getItemId());
+    }
+
+    public User map(UserRegistrationRequest userRegistrationRequest, User user){
+        user.setFirstName(userRegistrationRequest.getFirstName());
+        user.setLastName(userRegistrationRequest.getLastName());
+        user.setEmail(userRegistrationRequest.getEmail());
+        user.setPassword(userRegistrationRequest.getPassword());
+        user.setIndustry(userRegistrationRequest.getIndustry());
+        user.setRole(userRegistrationRequest.getRole());
+        return user;
     }
 }

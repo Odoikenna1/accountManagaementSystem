@@ -1,6 +1,7 @@
 package com.semicolon.africa.data.models.enums;
 
 public enum Role {
-    ACQUAINTANCE,
-    USER;
+    ADMIN,
+    USER,
+    GUEST
 }
