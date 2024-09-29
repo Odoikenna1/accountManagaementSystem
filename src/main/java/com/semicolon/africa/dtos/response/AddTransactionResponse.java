@@ -20,4 +20,12 @@ public class AddTransactionResponse {
     private TransactionType type;
 
     private String message;
+
+    private int year;
+
+    private int month;
+
+    private int day;
+
+    private String time;
 }

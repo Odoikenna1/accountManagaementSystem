@@ -94,6 +94,10 @@ public class Mapper {
         response.setSenderName(bookKeeping.getSenderName());
         response.setPaymentMethod(bookKeeping.getPaymentMethod());
         response.setType(bookKeeping.getTransactionType());
+        response.setYear(bookKeeping.getYear());
+        response.setMonth(bookKeeping.getMonth());
+        response.setDay(bookKeeping.getDay());
+        response.setTime(bookKeeping.getTime());
         response.setMessage("Transaction Added To Record");
     }
 
