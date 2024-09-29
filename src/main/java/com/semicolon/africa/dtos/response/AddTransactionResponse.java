@@ -1,27 +1,23 @@
-package com.semicolon.africa.data.models;
+package com.semicolon.africa.dtos.response;
 
 import com.semicolon.africa.data.type.PaymentMethod;
 import com.semicolon.africa.data.type.TransactionType;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Entity
-public class BookKeeping {
+public class AddTransactionResponse {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String receiverName;
 
     private String senderName;
 
-    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
+    private TransactionType type;
+
+    private String message;
 }
