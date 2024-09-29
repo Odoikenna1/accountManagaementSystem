@@ -27,6 +27,9 @@ public class BookKeeping {
     @Setter
     private PaymentMethod paymentMethod;
 
+    @Setter
+    private Long userId;
+
     @Enumerated(EnumType.STRING)
     @Setter
     private TransactionType transactionType;
