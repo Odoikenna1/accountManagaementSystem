@@ -33,7 +33,7 @@ public class ItemServiceController {
             AddItemResponse response = itemServices.addItem(addItemRequest);
             return new ResponseEntity<>((new ApiResponse(true ,response )),CREATED);
         }catch (Exception error){
-            return new ResponseEntity<>(new ApiResponse(false, error),BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()),BAD_REQUEST);
         }
     }
 
@@ -43,7 +43,7 @@ public class ItemServiceController {
             RemoveItemResponse response = itemServices.removeItem(removeItemRequest);
             return new ResponseEntity<>((new ApiResponse(true ,response )),CREATED);
         }catch (Exception error){
-            return new ResponseEntity<>(new ApiResponse(false, error),BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()),BAD_REQUEST);
         }
     }
 
@@ -53,7 +53,7 @@ public class ItemServiceController {
             List<GetAllItemCurrentStateResponse> responses = itemServices.getAllItemCurrentState(getAllItemCurrentStateRequest);
             return new ResponseEntity<>(new ApiResponse(true,responses),CREATED);
         }catch (Exception error){
-            return new ResponseEntity<>(new ApiResponse(false, error),BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()),BAD_REQUEST);
         }
     }
 }
