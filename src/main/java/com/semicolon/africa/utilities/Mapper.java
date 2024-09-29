@@ -1,14 +1,19 @@
 package com.semicolon.africa.utilities;
 
+import com.semicolon.africa.data.models.BookKeeping;
 import com.semicolon.africa.data.models.Item;
 import com.semicolon.africa.data.models.TrackItemQuantity;
 import com.semicolon.africa.data.models.User;
 import com.semicolon.africa.data.type.CategoryType;
+import com.semicolon.africa.data.type.PaymentMethod;
+import com.semicolon.africa.data.type.TransactionType;
 import com.semicolon.africa.dtos.requests.AddItemRequest;
 import com.semicolon.africa.dtos.requests.AddItemTrackRequest;
+import com.semicolon.africa.dtos.requests.AddTransactionRequest;
 import com.semicolon.africa.dtos.requests.UserRegistrationRequest;
 import com.semicolon.africa.dtos.response.AddItemResponse;
 import com.semicolon.africa.dtos.response.AddItemTrackResponse;
+import com.semicolon.africa.dtos.response.AddTransactionResponse;
 import com.semicolon.africa.dtos.response.GetAllItemHistoryResponse;
 
 public class Mapper {
@@ -73,6 +78,23 @@ public class Mapper {
         mappedTrackedItemResponse.setMonth(trackItemQuantity1.getMonth());
         mappedTrackedItemResponse.setYear(trackItemQuantity1.getYear());
         mappedTrackedItemResponse.setItemId(trackItemQuantity1.getItemId());
+    }
+
+    public static void map(BookKeeping bookKeeping, AddTransactionRequest request) {
+        bookKeeping.setReceiverName(request.getReceiverName());
+        bookKeeping.setSenderName(request.getSenderName());
+        TransactionType newTransactionType = TransactionType.valueOf(request.getTransactionType());
+        bookKeeping.setTransactionType(newTransactionType);
+        PaymentMethod newPaymentMethod = PaymentMethod.valueOf(request.getPaymentMethod());
+        bookKeeping.setPaymentMethod(newPaymentMethod);
+    }
+
+    public static void map(BookKeeping bookKeeping, AddTransactionResponse response) {
+        response.setReceiverName(bookKeeping.getReceiverName());
+        response.setSenderName(bookKeeping.getSenderName());
+        response.setPaymentMethod(bookKeeping.getPaymentMethod());
+        response.setType(bookKeeping.getTransactionType());
+        response.setMessage("Transaction Added To Record");
     }
 
     public User map(UserRegistrationRequest userRegistrationRequest, User user){

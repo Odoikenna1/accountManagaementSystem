@@ -5,15 +5,20 @@ import com.semicolon.africa.data.repositories.ItemRepository;
 import com.semicolon.africa.data.type.CategoryType;
 import com.semicolon.africa.dtos.requests.AddItemRequest;
 import com.semicolon.africa.dtos.requests.AddItemTrackRequest;
+import com.semicolon.africa.dtos.requests.GetAllItemCurrentStateRequest;
 import com.semicolon.africa.dtos.requests.RemoveItemRequest;
 import com.semicolon.africa.dtos.response.AddItemResponse;
 import com.semicolon.africa.dtos.response.AddItemTrackResponse;
+import com.semicolon.africa.dtos.response.GetAllItemCurrentStateResponse;
 import com.semicolon.africa.dtos.response.RemoveItemResponse;
 import com.semicolon.africa.exception.ItemException;
 import com.semicolon.africa.services.Interfaces.ItemServices;
 import com.semicolon.africa.utilities.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -94,5 +99,27 @@ public class ItemServicesImpl implements ItemServices {
             throw new ItemException("item not found");
         }
         return removeItemResponse;
+    }
+
+    @Override
+    public List<GetAllItemCurrentStateResponse> getAllItemCurrentState(GetAllItemCurrentStateRequest request) {
+        List<Item> items = itemRepository.getItemsByUserId(request.getUserId());
+        List<GetAllItemCurrentStateResponse> getAllItemCurrentStateResponse = new ArrayList<>();
+        return mapAllItemIntoGetAllItemCurrentStateResponse(items,getAllItemCurrentStateResponse);
+    }
+
+    private List<GetAllItemCurrentStateResponse> mapAllItemIntoGetAllItemCurrentStateResponse(List<Item> items, List<GetAllItemCurrentStateResponse> getAllItemCurrentStateResponse) {
+        for (Item item : items) {
+            GetAllItemCurrentStateResponse response = new GetAllItemCurrentStateResponse();
+            response.setId(item.getId());
+            response.setName(item.getName());
+            response.setCategory(item.getCategory());
+            response.setStock(item.getStock());
+            response.setUnitPrice(item.getUnitPrice());
+            response.setInventoryId(item.getInventoryId());
+            response.setUserId(item.getUserId());
+            getAllItemCurrentStateResponse.add(response);
+        }
+        return getAllItemCurrentStateResponse;
     }
 }
