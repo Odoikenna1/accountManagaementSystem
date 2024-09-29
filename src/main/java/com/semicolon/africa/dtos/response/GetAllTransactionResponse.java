@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class AddTransactionResponse {
-
+public class GetAllTransactionResponse {
     private Long id;
 
     private Long userId;
@@ -19,9 +18,7 @@ public class AddTransactionResponse {
 
     private PaymentMethod paymentMethod;
 
-    private TransactionType type;
-
-    private String message;
+    private TransactionType transactionType;
 
     private int year;
 
