@@ -9,6 +9,8 @@ import lombok.Setter;
 @Getter
 public class AddTransactionRequest {
 
+    private Long userId;
+
     private String receiverName;
 
     private String senderName;

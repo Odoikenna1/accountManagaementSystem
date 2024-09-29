@@ -86,6 +86,7 @@ public class Mapper {
 
     public static void map(BookKeeping bookKeeping, AddTransactionRequest request) {
         bookKeeping.setReceiverName(request.getReceiverName());
+        bookKeeping.setUserId(request.getUserId());
         bookKeeping.setSenderName(request.getSenderName());
         TransactionType newTransactionType = TransactionType.valueOf(request.getTransactionType());
         bookKeeping.setTransactionType(newTransactionType);
@@ -94,10 +95,15 @@ public class Mapper {
     }
 
     public static void map(BookKeeping bookKeeping, AddTransactionResponse response) {
+        response.setUserId(bookKeeping.getUserId());
         response.setReceiverName(bookKeeping.getReceiverName());
         response.setSenderName(bookKeeping.getSenderName());
         response.setPaymentMethod(bookKeeping.getPaymentMethod());
         response.setType(bookKeeping.getTransactionType());
+        response.setYear(bookKeeping.getYear());
+        response.setMonth(bookKeeping.getMonth());
+        response.setDay(bookKeeping.getDay());
+        response.setTime(bookKeeping.getTime());
         response.setMessage("Transaction Added To Record");
     }
 
