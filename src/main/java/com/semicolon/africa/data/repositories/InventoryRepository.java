@@ -1,4 +1,6 @@
 package com.semicolon.africa.data.repositories;
 
-public interface InventoryRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 }

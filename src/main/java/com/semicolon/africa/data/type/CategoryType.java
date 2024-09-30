@@ -19,5 +19,6 @@ public enum CategoryType {
     FOOD,
     INSTRUMENTS,
     ART,
-    COMPUTER
+    COMPUTER,
+
 }

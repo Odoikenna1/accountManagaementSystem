@@ -1,4 +1,4 @@
 package com.semicolon.africa.dtos.response;
 
-public class CreateUserResponse {
+public class GenerateOTPResponse {
 }
