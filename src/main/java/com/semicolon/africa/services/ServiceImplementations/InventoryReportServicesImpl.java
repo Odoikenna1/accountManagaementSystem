@@ -1,36 +1,42 @@
 package com.semicolon.africa.services.ServiceImplementations;
-
-import com.semicolon.africa.data.models.Inventory;
-import com.semicolon.africa.dtos.requests.InventoryReportRequest;
-import com.semicolon.africa.dtos.response.InventoryReportResponse;
+import com.semicolon.africa.dtos.requests.GetAllItemCurrentStateRequest;
+import com.semicolon.africa.dtos.requests.GetAllTrackItemHistoryByMonthRequest;
+import com.semicolon.africa.dtos.requests.GetAllTrackItemHistoryByYearRequest;
+import com.semicolon.africa.dtos.requests.GetAllTrackItemHistoryRequest;
+import com.semicolon.africa.dtos.response.GetAllItemCurrentStateResponse;
+import com.semicolon.africa.dtos.response.GetAllItemHistoryResponse;
 import com.semicolon.africa.services.Interfaces.InventoryReportServices;
-
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class InventoryReportServicesImpl implements InventoryReportServices {
 
-    private Inventory inventory;
+    @Autowired
+    private ItemServicesImpl itemServices;
 
-    public InventoryReportServicesImpl(Inventory inventory) {
-        this.inventory = inventory;
+    @Autowired
+    private TrackItemQuantityServicesImpl trackItemQuantityServices;
+
+    @Override
+    public List<GetAllItemCurrentStateResponse> getAllItemCurrentState(GetAllItemCurrentStateRequest request) {
+        return itemServices.getAllItemCurrentState(request);
     }
 
     @Override
-    public List<InventoryReportResponse> getAllInventoryReport(InventoryReportRequest request) {
-        if (request == null || request.getUserId() == null) {
-            throw new RuntimeException("Invalid request");
-        }
-        return new ArrayList<>();
+    public List<GetAllItemHistoryResponse> getAllItemHistory(GetAllTrackItemHistoryRequest request) {
+        return trackItemQuantityServices.getAllTrackItemHistory(request);
     }
 
     @Override
-    public void getInventoryReportByDate() {
-
+    public List<GetAllItemHistoryResponse> getAllItemHistoryByYear(GetAllTrackItemHistoryByYearRequest request) {
+        return trackItemQuantityServices.getAllTrackItemHistoryByYear(request);
     }
 
     @Override
-    public void getInventoryReportByCategory() {
-
+    public List<GetAllItemHistoryResponse> getAllItemHistoryByMonth(GetAllTrackItemHistoryByMonthRequest request) {
+        return trackItemQuantityServices.getAllTrackItemHistoryByMonth(request);
     }
+
 }
